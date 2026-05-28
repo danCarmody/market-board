@@ -1,22 +1,7 @@
-# sv
+# market-board
+Companion app for FFXIV that looks at relevant data associate with the market board feature.
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-npx sv@0.15.3 create --template minimal --types ts --install npm ~/Codebase/market-board
-```
+# Run instructions:
 
 ## Developing
 
