@@ -1,6 +1,7 @@
 <script lang="ts">
     import {onMount} from 'svelte';
     import {getMarketListings} from '$lib/api/universalis';
+    import {searchItems, type ItemSearchResult} from '$lib/api/xivapi';
 
     type MarketListing = {
         quality: 'HQ' | 'NQ';
@@ -15,6 +16,9 @@
     let itemID = $state('2');
     let loading = $state(true);
     let error = $state('');
+    let itemSearch = $state('');
+    let itemResults = $state<ItemSearchResult[]>([]);
+    let searchingItems = $state(false);
 
     let lowestPrice = $derived(listings.length > 0 ? Math.min(...listings.map(item => item.price)): 0);
     let totalQuantity = $derived(listings.reduce((sum, item) => sum + item.quantity, 0));
@@ -45,6 +49,25 @@
         finally {
             console.log('Done loading');
             loading = false;
+        }
+    }
+
+    async function searchItemByName() {
+        error = '';
+        itemResults = [];
+
+        if(!itemSearch.trim()) {
+            return;
+        }
+
+        searchingItems = true;
+
+        try{
+            itemResults = await searchItems(itemSearch);
+        } catch(err) {
+            error = 'could not search item';
+        } finally {
+            searchingItems = false;
         }
     }
 
@@ -84,11 +107,15 @@
             <input 
                 class="rounded-xl border border-stone-300 px-4 py-3"
                 placeholder="Search Item"
-                bind:value={itemID}
+                bind:value={itemSearch}
             />
-            <button class="rounded-lg border border-stone-300 px-3 py-2 text-sm" onclick={loadMarketData}> 
+            <button class="rounded-lg border border-stone-300 px-3 py-2 text-sm" onclick={searchItemByName}> 
                 Search
             </button>
+
+            {#if searchingItems}
+                <p>Searching Items</p>
+            {/if}
         </div>
         
 
