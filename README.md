@@ -1,6 +1,19 @@
 # market-board
 Companion app for FFXIV that looks at relevant data associate with the market board feature.
 
+# Current Goals:
+## Decoupling:
+
+-> Decouple the frontend from external APIs </br>
+-> Build a Spring Boot service layer </br>
+-> Connect Svelte to Spring boot </br>
+-> Create a PostgreSQL database </br>
+-> Clean up backend logic </br>
+
+## Testing: 
+
+## Automation:
+
 # Run instructions:
 
 ## Developing
