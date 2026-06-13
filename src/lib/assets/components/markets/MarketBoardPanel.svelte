@@ -115,6 +115,21 @@
 
             {#if searchingItems}
                 <p>Searching Items</p>
+            {:else if itemResults.length > 0}
+                <div class="max-h-64 overflow-y-auto rounded-xl border border-stone-200 bg-white">
+                    {#each itemResults as item }
+                        <button class="block w-full px-4 py-2 text-left hover:bg-stone-100"
+                            onclick={() => {
+                                itemID = String(item.row_id);
+                                itemSearch = item.fields.Name;
+                                itemResults = [];
+                                loadMarketData();
+                            }}
+                            >
+                            {item.fields.Name}
+                            </button>
+                    {/each}
+                </div>
             {/if}
         </div>
         
